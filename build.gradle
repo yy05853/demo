@@ -36,7 +36,7 @@ task runShellScript(type: Exec) {
     commandLine 'bash', './setenv.sh'
 }
 
-bootRun.dependsOn runShellScript
+bootRun.dependsOn runShellScript	
 
 tasks.named('test') {
 	useJUnitPlatform()
