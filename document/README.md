@@ -1,4 +1,4 @@
-# 環境構築手順概要
+# 環境構築手順
 
 学習成果として、私が実施した環境構築の手順概要を記載します。
 
@@ -63,7 +63,9 @@
   - OS
     - ChromeOS 120.0.6099.203
 
-## Chromebook に作業環境を構築する
+## 手順
+
+### Chromebook に作業環境を構築する
 
 - ChromebookでLinuxを有効化する
   - [Chromebook で Linux をセットアップする](https://support.google.com/chromebook/answer/9145439?hl=ja)
@@ -79,7 +81,7 @@
   - [GitHub Copilot の概要](https://docs.github.com/ja/copilot/using-github-copilot/getting-started-with-github-copilot)
   - [VSCode ではじめる GitHub Copilot 活用術](https://qiita.com/RyoWakabayashi/items/1207128e88669c76bf5f)
 
-## Spring Boot のプロジェクトを作成する
+### Spring Boot のプロジェクトを作成する
 
 - ブラウザ版の Spring Initializr を利用してテンプレートをダウンロードする
   - 下記の設定値を入力し、「GENERATE」ボタンをクリックする
@@ -103,7 +105,7 @@
 - DemoApplication.java を VSCode 上で実行する
 - 作業マシン上のブラウザで http://localhost:8080 にアクセスし、「Whitelabel page」と表示されることを確認する
 
-## MariaDB と接続する
+### MariaDB と接続する
 
 - Docker をインストールする
   - [Docker Engine インストール（Debian 向け）](https://matsuand.github.io/docs.docker.jp.onthefly/engine/install/debian/)
