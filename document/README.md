@@ -155,3 +155,79 @@ docker-compose up -d
 - application.properties の記載
 - MariaDB からデータを取得する Java コードを作成する
 - 動作確認をする
+
+------
+
+- アプリ起動
+    - コンテナ実行
+        - cd ~/demo/demo/docker/
+        - sudo docker-compose up -d
+    - Spring Boot立ち上げ
+        - VSCode＞Gradle＞demo>tasks>application>bootRun
+    - アプリアクセス
+        - http://localhost:8080/
+- DBアクセス
+    - コンテナにログインする
+        - sudo docker ps
+        - sudo docker exec -it [コンテナID] bash
+    - mariadbにログインする
+        - sudo docker exec -it [コンテナID] mariadb --host localhost --user root --password --database mydatabase
+            - パスワードは.envファイル参照
+        - use mydatabase
+        - 
+        
+        CREATE TABLE `users` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `name` varchar(255) DEFAULT NULL,
+        `email` varchar(255) DEFAULT NULL,
+        PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+        
+        - insert into users (id, name, email) values (1, 'Alice', 'alice@example.com');
+        - show tables;
+- AWS
+    - AWSアカウント・IAM作成とセキュリティ設定
+        - [AWS アカウント作成の流れ(公式)](https://aws.amazon.com/jp/register-flow/)
+        - [AWSの始め方](https://zenn.dev/k_tana/articles/2023-05_how-to-start-aws)
+        - [個人利用AWSアカウントの作成](https://qiita.com/ti_and6id/items/7aaf34074346c7e5c7cc)
+        - [これをやっておけば大丈夫！AWSアカウント作成後にやること！](https://zenn.dev/issy/articles/zenn-aws-account-initial-setting)
+    - EC2(インスタンスの作成とSSH接続)
+        - Simplexチームの手順書を流用
+        - [AWS EC2 に Chromebook で SSH 接続するまで](https://qiita.com/kutinasi_hobby/items/a124cbc9daa4f9c76d91)
+- JDK
+    - [Install Java JDK 21 or OpenJDK 21 on Debian 12/11/10](https://computingforgeeks.com/install-java-jdk-or-openjdk-21-on-debian/)
+- MariaDB
+    - [MariaDB Package Repository Setup and Usage(公式)](https://mariadb.com/kb/en/mariadb-package-repository-setup-and-usage/#-mariadb-server-version)
+    - [MariaDBの初期パスワード変更方法](https://qiita.com/heatflat1021/items/c2b2818bdb0d4530f25a)
+    - mariadb --host localhost --user root --password
+    - CREATE DATABASE mydatabase;
+    - use mydatabase
+    - show tables;
+- httpd
+    - sudo apt -y install apache2
+    - sudo systemctl status apache2
+    - [Apache2 : インストール](https://www.server-world.info/query?os=Debian_11&p=httpd&f=1)
+- jarファイル作成
+    - [gradleプロジェクトでjarファイルを作成する](https://nbaboston.net/1401.html)
+- jar配置ディレクトリ作成
+    - sudo mkdir /usr/local/demo
+- jarファイル格納
+    - scp -i "chrome-key.pem" ~/demo/demo/build/libs/demo-0.0.1-SNAPSHOT.jar [admin@54.95.117.180](mailto:admin@54.95.117.180):
+    - ssh -i "chrome-key.pem" [admin@54.95.117.180](mailto:admin@54.95.117.180)
+    - sudo cp -p demo-0.0.1-SNAPSHOT.jar /usr/local/demo
+- apprunnerとappuserの作成
+    - sudo groupadd -g 9000 apprunner
+    - sudo useradd -N -g apprunner -s /sbin/nologin appuser
+- logフォルダ作成
+    - sudo mkdir /var/log/demo
+    - sudo chown -R appuser:apprunner /var/log/demo
+- SystemCTLの準備
+    - sudo vi /etc/systemd/system/demo.service
+- application.propertiesの準備
+    - sudo vi /usr/local/demo/application-staging.properties
+- 起動
+    - sudo systemctl start demo.service
+    - sudo tail -f /var/log/demo/demo.log
+    - sudo systemctl status demo.service
+- 8080ポートを開放
+    - [【図解】3ステップでAWS(EC2)の特定ポートを開放する手順](http://kakedashi-xx.com:25214/index.php/2020/12/08/post-1529/#toc3)
