@@ -231,3 +231,9 @@ docker-compose up -d
     - sudo systemctl status demo.service
 - 8080ポートを開放
     - [【図解】3ステップでAWS(EC2)の特定ポートを開放する手順](http://kakedashi-xx.com:25214/index.php/2020/12/08/post-1529/#toc3)
+
+## フロント
+
+フロントサーバを起動する(VSCodeのNode.jsのバージョンが低いので、実行はターミナルアプリからおこなうこと)
+
+- npm run dev
