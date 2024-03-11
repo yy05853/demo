@@ -1,10 +1,25 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
 defineProps({
   msg: {
     type: String,
     required: true
   }
 })
+
+const data = ref(null);
+
+onMounted(() => {
+  axios.get('http://localhost:8080/')
+    .then(response => {
+      data.value = response.data;
+    })
+    .catch(error => {
+      console.error("エラー発生:", error);
+    });
+});
 </script>
 
 <template>
@@ -15,6 +30,9 @@ defineProps({
       <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
       <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
     </h3>
+    <div>
+      <p>データ: {{ data }}</p>
+    </div>
   </div>
 </template>
 
